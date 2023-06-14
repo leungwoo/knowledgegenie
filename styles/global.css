@@ -30,14 +30,16 @@
 
 .main:after {
   content: "";
-  background-image: url("/assets/images/grid.svg");
+  background-image: url("/assets/images/prompt-genie-logo.png");
+  background-repeat: no-repeat;
+  background-position: center;
   z-index: 1;
   position: absolute;
   width: 100%;
   height: 100%;
-  top: 0;
+  top: 30;
   opacity: 0.4;
-  filter: invert(1);
+  
 }
 
 .gradient {
