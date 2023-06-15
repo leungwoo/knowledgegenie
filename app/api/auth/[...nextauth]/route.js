@@ -1,27 +1,27 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-//import AppleProvider from "next-auth/providers/apple";
-//import EmailProvider from "next-auth/providers/email";
+
+import { connectToDB } from "@utils/database";
 
 const handler = NextAuth({
   providers: [
     GoogleProvider({
-      clientId: "",
-      clientSecret: "",
+      clientId: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
-    // OAuth authentication providers
-    // AppleProvider({
-    //   clientId: process.env.APPLE_ID,
-    //   clientSecret: process.env.APPLE_SECRET,
-    // }),
-    // Sign in with passwordless email link
-    // EmailProvider({
-    //   server: process.env.MAIL_SERVER,
-    //   from: "<no-reply@example.com>",
-    // }),
   ],
   async session({ session }) {},
-  async signIn({ profile }) {},
+  async signIn({ profile }) {
+    try {
+      await connectToDB();
+      //check if user already exist
+      //if not create a new user and add to database
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  },
 });
 
 export { handler as GET, handler as POST };
