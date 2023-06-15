@@ -4,20 +4,22 @@ import Provider from "@components/Provider";
 
 export const metaData = {
   title: "Prompts Genie",
-  description: "Discover and Share AI prompts",
+  description: "Discover and Spread AI prompts",
 };
 
 const RootLayout = ({ children }) => {
   return (
     <html lang="en">
       <body>
-        <div className="main">
-          <div className="gradient" />
-        </div>
-        <main className="app">
-          <Nav />
-          {children}
-        </main>
+        <Provider>
+          <div className="main">
+            <div className="gradient" />
+          </div>
+          <main className="app">
+            <Nav />
+            {children}
+          </main>
+        </Provider>
       </body>
     </html>
   );
