@@ -1,6 +1,11 @@
 import "@styles/global.css";
 import Nav from "@components/Nav";
 import Provider from "@components/Provider";
+import { Inter } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+});
 
 export const metaData = {
   title: "Prompts Genie",
@@ -9,7 +14,7 @@ export const metaData = {
 
 const RootLayout = ({ children }) => {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.className}`}>
       <body>
         <Provider>
           <div className="main">
