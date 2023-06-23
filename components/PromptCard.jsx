@@ -1,12 +1,22 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/Navigation";
 import { useState } from "react";
 
 const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   //check if copied already
+  const router = useRouter();
   const [copied, setCopied] = useState("");
-  const handleProfileClick = () => {};
+  const handleCopy = () => {
+    setCopied(post.prompt);
+    navigator.clipboard.writeText(post.prompt);
+    setTimeout(() => setCopied(""), 3000);
+  };
+
+  const handleProfileClick = () => {
+    router.push("/profile");
+  };
   return (
     <div className="flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit">
       <div className="flex justify-between items-start gap-5">
@@ -30,7 +40,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
             </p>
           </div>
         </div>
-        <div className="copy_btn" onClick={() => {}}>
+        <div className="copy_btn" onClick={handleCopy}>
           <Image
             src={
               copied === post.prompt
@@ -39,10 +49,17 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
             }
             width={12}
             height={12}
+            alt="copy"
           />
         </div>
       </div>
-      <p>{post.prompt}</p>
+      <p className="my-4 font-satoshi text-md text-gray-700">{post.prompt}</p>
+      <p
+        className="font-inter text-sm blue_gradient cursor-pointer"
+        onClick={() => handleTagClick && handleTagClick(post.tag)}
+      >
+        {post.tag}
+      </p>
     </div>
   );
 };
