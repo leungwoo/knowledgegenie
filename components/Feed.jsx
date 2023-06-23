@@ -2,14 +2,13 @@
 import { useState, useEffect } from "react";
 import PromptCard from "./PromptCard";
 const Feed = () => {
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState();
   const [post, setPost] = useState([]);
 
-  const PromptCardList = ({ data, handleTagClick }) => {
-    console.log(data);
+  const PromptCardList = ({ postData, handleTagClick }) => {
     return (
       <div className="mt-16 prompt_layout">
-        {data.map((post) => (
+        {postData.map((post) => (
           <PromptCard
             key={post._id}
             post={post}
@@ -20,7 +19,9 @@ const Feed = () => {
     );
   };
 
-  const handleSearchChange = (e) => {};
+  const handleSearchChange = (e) => {
+    setSearchText(e.target.value);
+  };
 
   //fetch post form created GET api route
   useEffect(() => {
@@ -43,7 +44,7 @@ const Feed = () => {
           className="search_input"
         />
       </form>
-      <PromptCardList data={post} handleTagClick={() => {}} />
+      <PromptCardList postData={post} handleTagClick={() => {}} />
     </section>
   );
 };
