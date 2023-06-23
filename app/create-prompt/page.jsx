@@ -3,11 +3,13 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/Navigation";
+import Loading from "@components/Loading";
 
 import Form from "@components/Form";
 
 const CreatePrompt = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [post, setPost] = useState({
@@ -38,6 +40,13 @@ const CreatePrompt = () => {
       setSubmitting(false);
     }
   };
+
+  if (status === "loading") {
+    return <Loading />;
+  }
+  if (!session) {
+    return router.push("/");
+  }
   return (
     <div>
       <Form
