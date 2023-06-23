@@ -1,9 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
 import PromptCard from "./PromptCard";
+import Loading from "./Loading";
+
 const Feed = () => {
   const [searchText, setSearchText] = useState();
   const [post, setPost] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const PromptCardList = ({ postData, handleTagClick }) => {
     return (
@@ -26,12 +29,27 @@ const Feed = () => {
   //fetch post form created GET api route
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await fetch("/api/prompt");
-      const data = await res.json();
-      setPost(data);
+      try {
+        const res = await fetch("/api/prompt");
+        const data = await res.json();
+        if (!data) {
+          throw new Error("Failed to fetch data");
+        }
+        setPost(data);
+        setLoading(false); // Set loading to false when data is fetched
+      } catch (error) {
+        console.error(error);
+        setLoading(false); // Set loading to false in case of error
+      }
     };
+
     fetchPosts();
   }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <section className="feed">
       <form className="relative w-full flex-center">
