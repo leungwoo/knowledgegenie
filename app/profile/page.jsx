@@ -10,14 +10,14 @@ import { useRouter } from "next/Navigation";
 const MyProfile = () => {
   const { data: session } = useSession();
   const router = useRouter();
-  const [post, setPost] = useState([]);
+  const [myPosts, setMyPosts] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await fetch(`/api/users/${session?.user.id}/posts`);
       const data = await response.json();
 
-      setPost(data);
+      setMyPosts(data);
     };
 
     if (session?.user.id) fetchPosts();
@@ -27,8 +27,28 @@ const MyProfile = () => {
     router.push(`/update-prompt?id=${post._id}`);
   };
 
-  const handleDelete = async () => {};
+  //   const handleDelete = async (post) => {
+  //     try {
+  //       await fetch(`/api/prompt/${post._id.toString()}`, { method: "DELETE" });
+  //       const filteredPost = posts.filter((p) => p._id !== post._id);
+  //       setMyPost(filteredPost);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  const handleDelete = async (post) => {
+    try {
+      await fetch(`/api/prompt/${post._id.toString()}`, {
+        method: "DELETE",
+      });
 
+      const filteredPosts = myPosts.filter((item) => item._id !== post._id);
+
+      setMyPosts(filteredPosts);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       <Profile
@@ -38,7 +58,7 @@ const MyProfile = () => {
         }
         handleEdit={handleEdit}
         handleDelete={handleDelete}
-        data={post}
+        data={myPosts}
       />
     </div>
   );
