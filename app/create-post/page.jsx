@@ -7,7 +7,7 @@ import Loading from "@components/Loading";
 
 import Form from "@components/Form";
 
-const CreatePrompt = () => {
+const CreatePost = () => {
   const { data: session, status } = useSession();
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -17,7 +17,7 @@ const CreatePrompt = () => {
     prompt: "",
   });
 
-  const createPrompt = async (e) => {
+  const createPost = async (e) => {
     e.preventDefault(); //reduces reloades
     setSubmitting(true);
     //create first prompt
@@ -54,10 +54,10 @@ const CreatePrompt = () => {
         post={post}
         setPost={setPost}
         submitting={submitting}
-        handleSubmit={createPrompt}
+        handleSubmit={createPost}
       />
     </div>
   );
 };
 
-export default CreatePrompt;
+export default CreatePost;

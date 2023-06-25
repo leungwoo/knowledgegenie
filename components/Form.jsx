@@ -7,15 +7,15 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
       </h1>
       <p className="desc text-left max-w-md">
         {" "}
-        {type} and share amazing prompts with the world, and let your
-        imagination run wild with any AI-powered platform
+        {type} and save different knowledge pieces to help you recall and apply
+        later on.
       </p>
       <form
         onSubmit={handleSubmit}
         className="mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism"
       >
         <label className="font-satoshi font-semibold text-base text-gray-700">
-          <span>Your AI Prompt</span>
+          <span>Your Knowledge Bits:</span>
           <textarea
             value={post.prompt}
             onChange={(e) => setPost({ ...post, prompt: e.target.value })}
@@ -26,7 +26,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
         </label>
         <label className="font-satoshi font-semibold text-base text-gray-700">
           <span>
-            Field of Prompt{" "}
+            Area of Knowledge{" "}
             <span className="font-normal">
               (#product, #webdevelopment, #idea)
             </span>

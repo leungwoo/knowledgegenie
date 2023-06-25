@@ -27,15 +27,6 @@ const MyProfile = () => {
     router.push(`/update-prompt?id=${post._id}`);
   };
 
-  //   const handleDelete = async (post) => {
-  //     try {
-  //       await fetch(`/api/prompt/${post._id.toString()}`, { method: "DELETE" });
-  //       const filteredPost = posts.filter((p) => p._id !== post._id);
-  //       setMyPost(filteredPost);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
   const handleDelete = async (post) => {
     try {
       await fetch(`/api/prompt/${post._id.toString()}`, {
@@ -54,7 +45,7 @@ const MyProfile = () => {
       <Profile
         name={"My"}
         desc={
-          "Welcome to your personalized profile page. Share your exceptional prompts and inspire others with the power of your imagination"
+          "Your Personal KNOWLEDGE vortex is waiting on you to take ACTION!"
         }
         handleEdit={handleEdit}
         handleDelete={handleDelete}
