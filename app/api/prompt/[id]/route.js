@@ -2,7 +2,7 @@ import { connectToDB } from "@utils/database";
 import Prompt from "@models/prompt";
 
 //GET
-export const revalidate = 0;
+export const revalidate = 1;
 
 export const GET = async (request, { params }) => {
   try {
