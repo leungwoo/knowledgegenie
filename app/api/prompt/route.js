@@ -1,6 +1,6 @@
 import { connectToDB } from "@utils/database";
 import Prompt from "@models/prompt";
-
+export const revalidate = 1;
 export const GET = async (request) => {
   try {
     await connectToDB();
@@ -11,4 +11,3 @@ export const GET = async (request) => {
     return new Response("Failed to fetch all prompts", { status: 500 });
   }
 };
-export const revalidate = 1;
