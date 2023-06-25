@@ -30,7 +30,7 @@ const Feed = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch("/api/prompt", { cache: "no-store" });
+        const res = await fetch("/api/prompt", { next: { revalidate: 1 } });
         const data = await res.json();
         if (!data) {
           throw new Error("Failed to fetch data");
