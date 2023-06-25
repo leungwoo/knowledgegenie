@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/Navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {

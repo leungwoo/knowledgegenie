@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/Navigation";
+import { useRouter } from "next/navigation";
 import Loading from "@components/Loading";
 
 import Form from "@components/Form";
