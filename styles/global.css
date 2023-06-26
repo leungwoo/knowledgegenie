@@ -30,7 +30,7 @@
 
 .main:after {
   content: "";
-  background-image: url("/assets/images/prompt-genie-logo.png");
+  background-image: url("/assets/images/knowledge-genie.png");
   background-repeat: no-repeat;
   background-position: center;
   z-index: 1;
