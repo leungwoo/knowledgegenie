@@ -22,7 +22,7 @@ const Nav = () => {
     <nav className="flex-between w-full mb-16 pt-3">
       <Link href="/" className="flex gap-2 flex-center">
         <Image
-          src="/assets/images/prompt-genie-logo.png"
+          src="/assets/images/knowledge-genie.png"
           width={100}
           height={100}
           alt="prompt genie"
