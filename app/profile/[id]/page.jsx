@@ -31,7 +31,7 @@ const UserProfile = ({ params }) => {
   return (
     <div>
       <Profile
-        name={userName}
+        name={userName.toUpperCase()}
         desc={`Welcome to ${userName.toUpperCase()} KNOWLEDGE vortex see if you can find anything useful`}
         data={usersPosts}
       />
