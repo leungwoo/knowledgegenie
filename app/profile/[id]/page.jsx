@@ -2,12 +2,11 @@
 
 import Profile from "@components/Profile";
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 import Loading from "@components/Loading";
 
 const UserProfile = ({ params }) => {
-  const router = useRouter();
   const [usersPosts, setUsersPosts] = useState([]);
   const searchParams = useSearchParams();
   const userName = searchParams.get("name");
