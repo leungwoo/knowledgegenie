@@ -4,9 +4,10 @@ import PromptCard from "./PromptCard";
 import Loading from "./Loading";
 
 const Feed = () => {
-  const [searchText, setSearchText] = useState();
-  const [post, setPost] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [filteredPost, setFilteredPost] = useState([]);
 
   const PromptCardList = ({ postData, handleTagClick }) => {
     return (
@@ -26,6 +27,28 @@ const Feed = () => {
     setSearchText(e.target.value);
   };
 
+  const handleFormSubmit = (e) => {
+    e.preventDefault(); // Prevent form submission
+
+    const query = searchText;
+
+    const filtered = posts.filter((post) => {
+      //filter for tag
+      const tagMatch = post.tag.toLowerCase().includes(query.toLowerCase());
+      // Filter for username
+      const userMatch = post.creator.username
+        .toLowerCase()
+        .includes(query.toLowerCase());
+      // Filter for prompt
+      const promptMatch = post.prompt
+        .toLowerCase()
+        .includes(query.toLowerCase());
+
+      return tagMatch || promptMatch || userMatch;
+    });
+    setFilteredPost(filtered);
+  };
+
   //fetch post form created GET api route
   useEffect(() => {
     const fetchPosts = async () => {
@@ -35,7 +58,7 @@ const Feed = () => {
         if (!data) {
           throw new Error("Failed to fetch data");
         }
-        setPost(data);
+        setPosts(data);
         setLoading(false); // Set loading to false when data is fetched
       } catch (error) {
         console.error(error);
@@ -52,7 +75,7 @@ const Feed = () => {
 
   return (
     <section className="feed">
-      <form className="relative w-full flex-center">
+      <form className="relative w-full flex-center" onSubmit={handleFormSubmit}>
         <input
           type="text"
           value={searchText}
@@ -62,7 +85,10 @@ const Feed = () => {
           className="search_input"
         />
       </form>
-      <PromptCardList postData={post} handleTagClick={() => {}} />
+      <PromptCardList
+        postData={searchText === "" ? posts : filteredPost}
+        handleTagClick={() => {}}
+      />
     </section>
   );
 };
