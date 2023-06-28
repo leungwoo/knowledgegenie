@@ -10,8 +10,8 @@ const Home = () => {
       </h1>
       <p className="desc text-center">
         Knowledge Genie is an open-source Skill developing tool for anyone that
-        learns something new and want to apply it at some point to get to the
-        next level.
+        learns something new and would eventually apply it at some point to get
+        to the next level.
       </p>
       <Feed />
     </section>

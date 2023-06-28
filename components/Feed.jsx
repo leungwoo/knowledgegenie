@@ -3,11 +3,28 @@ import { useState, useEffect } from "react";
 import PromptCard from "./PromptCard";
 import Loading from "./Loading";
 
+const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const debounceTimer = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(debounceTimer);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
+
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filteredPost, setFilteredPost] = useState([]);
+  const debouncedSearchText = useDebounce(searchText, 300);
 
   const PromptCardList = ({ postData, handleTagClick }) => {
     return (
@@ -30,7 +47,7 @@ const Feed = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault(); // Prevent form submission
 
-    const query = searchText;
+    const query = debouncedSearchText;
 
     const filtered = posts.filter((post) => {
       //filter for tag
@@ -47,6 +64,10 @@ const Feed = () => {
       return tagMatch || promptMatch || userMatch;
     });
     setFilteredPost(filtered);
+  };
+
+  const handleTagClick = (tagname) => {
+    setSearchText(tagname);
   };
 
   //fetch post form created GET api route
@@ -87,7 +108,7 @@ const Feed = () => {
       </form>
       <PromptCardList
         postData={searchText === "" ? posts : filteredPost}
-        handleTagClick={() => {}}
+        handleTagClick={handleTagClick}
       />
     </section>
   );
