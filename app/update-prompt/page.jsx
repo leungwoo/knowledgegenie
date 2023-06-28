@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
+import Loading from "@components/Loading";
 import Form from "@components/Form";
 
 const UpdatePrompt = () => {
@@ -12,7 +13,7 @@ const UpdatePrompt = () => {
 
   const [post, setPost] = useState({ prompt: "", tag: "" });
   const [submitting, setIsSubmitting] = useState(false);
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const getPromptDetails = async () => {
       const response = await fetch(`/api/prompt/${promptId}`);
@@ -22,11 +23,14 @@ const UpdatePrompt = () => {
         prompt: data.prompt,
         tag: data.tag,
       });
+      setLoading(false);
     };
 
     if (promptId) getPromptDetails();
   }, [promptId]);
-
+  if (loading) {
+    return <Loading />;
+  }
   const updatePrompt = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);

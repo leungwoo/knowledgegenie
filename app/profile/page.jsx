@@ -3,14 +3,15 @@
 import Profile from "@components/Profile";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-
-//import Loading from "@components/Loading";
 import { useRouter } from "next/navigation";
+
+import Loading from "@components/Loading";
 
 const MyProfile = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [myPosts, setMyPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -18,10 +19,15 @@ const MyProfile = () => {
       const data = await response.json();
 
       setMyPosts(data);
+      setLoading(false);
     };
 
     if (session?.user.id) fetchPosts();
   }, [session?.user.id]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   const handleEdit = (post) => {
     router.push(`/update-prompt?id=${post._id}`);
